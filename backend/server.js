@@ -1,9 +1,9 @@
 const express = require("express");
-const db = require("./src/backend/db");
-const foodRout = require("./src/backend/routers/foodRout");
-const userRout = require("./src/backend/routers/userRout");
-const customerRout = require("./src/backend/routers/customerRout");
-const orderRout = require("./src/backend/routers/orderRout");
+const db = require("./db");
+const foodRout = require("./routers/foodRout");
+const userRout = require("./routers/userRout");
+const customerRout = require("./routers/customerRout");
+const orderRout = require("./routers/orderRout");
 const path = require("path");
 
 const app = express();
