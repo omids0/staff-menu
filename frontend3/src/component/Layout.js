@@ -6,14 +6,13 @@ function Layout({ loading, error, children }) {
     <div className="container mx-auto min-h-screen flex flex-col justify-between">
       <header className="flex flex-row-reverse justify-between p-2 items-center">
         <>
-          <img src={logo} alt="staff_menu_logo" className="w-[6rem]" />
+          <img src={logo} alt="staff_menu_logo" className="w-[5rem]" />
         </>
         <div className="flex flex-row justify-between min-w-[9rem]">
           <button>ورود</button>
           <div className="text-gray-300">{"|"}</div>
           <button className="flex flex-row">
             <p className="mx-2 text-red-400 text-lg">0</p>
-
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
