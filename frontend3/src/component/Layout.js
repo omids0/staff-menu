@@ -1,7 +1,9 @@
 import React from "react";
 import logo from "../images/my_icon.png";
+import Loading from "./Loading";
+import SomeThingWrong from "./SomeThingWrong";
 
-function Layout({ loading, error, children }) {
+function Layout({ loading = false, error = false, children }) {
   return (
     <div className="container mx-auto min-h-screen flex flex-col justify-between">
       <header className="flex flex-row-reverse justify-between p-2 items-center">
@@ -30,7 +32,15 @@ function Layout({ loading, error, children }) {
           </button>
         </div>
       </header>
-      <div className="p-2">{children}</div>
+      <div className="p-2">
+        {loading && (
+          <div className="flex justify-center">
+            <Loading />
+          </div>
+        )}
+        {error && <SomeThingWrong />}
+        {!loading && !error && <div>{children}</div>}
+      </div>
       <footer className="p-2 border-t-2 flex justify-center text-center text-gray-500 text-sm">
         <p>این نرم‌افزار جهت نمونه کار می‌باشد و هیچ ارزش دیگری ندارد.</p>
       </footer>
