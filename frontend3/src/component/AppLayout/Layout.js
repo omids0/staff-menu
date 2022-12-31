@@ -1,7 +1,7 @@
 import React from "react";
-import logo from "../images/my_icon.png";
-import Loading from "./Loading";
-import SomeThingWrong from "./SomeThingWrong";
+import logo from "../../images/my_icon.png";
+import Loading from "../Loading/Loading";
+import SomeThingWrong from "../SomeThingWentWrong/SomeThingWrong";
 
 function Layout({ loading = false, error = false, children }) {
   return (
