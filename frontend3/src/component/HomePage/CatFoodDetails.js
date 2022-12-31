@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import { useDispatch } from "react-redux";
 import CartIcone from "../CartIcone";
 import { addToBasketAction } from "../../redux/actions/basketActions";
+import { getThreeDigitNum } from "../../tools/threeDigit";
 
 function CatFoodDetails({ food }) {
   const dispatch = useDispatch();
@@ -10,8 +11,6 @@ function CatFoodDetails({ food }) {
   useEffect(() => {
     dispatch(addToBasketAction(food, count));
   }, [count]);
-
-  const getThreeDigitNum = (num) => num.toLocaleString();
 
   return (
     <div className="flex flex-row justify-between my-2">
