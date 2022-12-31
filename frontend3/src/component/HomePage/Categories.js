@@ -9,7 +9,9 @@ function Categories({ data, CategoryTitle, categoryId }) {
       </div>
       {data.map(
         (food) =>
-          food.category === `${categoryId}` && <CatFoodDetails food={food} />
+          food.category === `${categoryId}` && (
+            <CatFoodDetails key={food._id} food={food} />
+          )
       )}
     </div>
   );

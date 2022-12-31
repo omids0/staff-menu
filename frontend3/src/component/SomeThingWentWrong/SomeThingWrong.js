@@ -10,7 +10,7 @@ function SomeThingWrong() {
           viewBox="0 0 24 24"
           stroke-width="1.5"
           stroke="currentColor"
-          class="w-24 h-24 mx-auto mb-6 text-yellow-400"
+          className="w-24 h-24 mx-auto mb-6 text-yellow-400"
         >
           <path
             stroke-linecap="round"

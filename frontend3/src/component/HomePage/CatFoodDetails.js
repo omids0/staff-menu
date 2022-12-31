@@ -1,8 +1,15 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
+import { useDispatch } from "react-redux";
 import CartIcone from "../CartIcone";
+import { addToBasketAction } from "../../redux/actions/basketActions";
 
 function CatFoodDetails({ food }) {
+  const dispatch = useDispatch();
   const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    dispatch(addToBasketAction(food, count));
+  }, [count]);
 
   const getThreeDigitNum = (num) => num.toLocaleString();
 
