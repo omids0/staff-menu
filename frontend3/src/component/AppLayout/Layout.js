@@ -46,6 +46,11 @@ function Layout({ loadingLayout = false, errorLayout = false, children }) {
     });
   };
 
+  function handleLogout() {
+    localStorage.removeItem("userlogedin");
+    window.location.reload();
+  }
+
   return (
     <div className="container mx-auto min-h-screen flex flex-col justify-between">
       <header className="flex flex-row-reverse justify-between p-2 items-center">
@@ -78,8 +83,8 @@ function Layout({ loadingLayout = false, errorLayout = false, children }) {
                   <a href="#">سفارشات من</a>
                   <a href="#">سفارشات منتظر</a>
                   <a href="#">مشترکین (ثبت، جستجو)</a>
-                  <a href="#">صفحه مدیریت</a>
-                  <a href="#">خروج</a>
+                  {userLoged.access === "admin" && <a href="#">صفحه مدیریت</a>}
+                  <button onClick={handleLogout}>خروج</button>
                 </div>
               </div>
             </div>

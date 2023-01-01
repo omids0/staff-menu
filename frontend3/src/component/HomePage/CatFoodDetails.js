@@ -10,6 +10,7 @@ function CatFoodDetails({ food }) {
 
   useEffect(() => {
     dispatch(addToBasketAction(food, count));
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [count]);
 
   return (

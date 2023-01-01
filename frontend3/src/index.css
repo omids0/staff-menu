@@ -41,6 +41,7 @@ html {
 
 /* Links inside the dropdown */
 .dropdown-content a {
+  font-size: 0.9rem;
   color: black;
   padding: 12px 16px;
   text-decoration: none;
@@ -62,6 +63,7 @@ html {
   background-color: #faf6f6;
 }
 
-.dropdown-content a {
+.dropdown-content button {
   font-size: 0.9rem;
+  margin: 0 16px 12px;
 }

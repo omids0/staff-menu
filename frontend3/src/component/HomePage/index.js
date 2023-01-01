@@ -12,6 +12,7 @@ function HomePage() {
 
   useEffect(() => {
     dispatch(getAllFoodsAction());
+    // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
   return (
