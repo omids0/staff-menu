@@ -3,7 +3,7 @@ import axios from "axios";
 export const addNewOrderAction = (order) => async (dispatch) => {
   dispatch({ type: "ADD_NEW_ORDER_REQUEST" });
   try {
-    const response = await axios.post("/api/orders/addneworder", { order });
+    await axios.post("/api/orders/addneworder", { order });
     dispatch({ type: "ADD_NEW_ORDER_SUCCESS" });
     window.location.href = "/";
     localStorage.removeItem("basketN");
@@ -25,7 +25,7 @@ export const userOrdersAction = (id) => async (dispatch) => {
 export const editOrderAction = (order) => async (dispatch) => {
   dispatch({ type: "EDIT_ORDER_REQUEST" });
   try {
-    const response = await axios.post("/api/orders/editorder", { order });
+    await axios.post("/api/orders/editorder", { order });
     dispatch({ type: "EDIT_ORDER_SUCCESS" });
     window.location.href = "/ordersending";
   } catch (error) {
