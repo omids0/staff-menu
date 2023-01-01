@@ -15,7 +15,7 @@ function HomePage() {
   }, []);
 
   return (
-    <Layout loading={loading} error={error}>
+    <Layout loadingLayout={loading} errorLayout={error}>
       {foods !== undefined && foods !== null && (
         <div>
           <Categories

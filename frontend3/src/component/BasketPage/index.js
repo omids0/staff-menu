@@ -105,7 +105,7 @@ function BasketPage() {
             </div>
           </div>
         ) : (
-          <div className="flex flex-col justify-center">
+          <div className="flex flex-col justify-center w-full">
             <svg
               xmlns="http://www.w3.org/2000/svg"
               fill="none"
