@@ -13,8 +13,6 @@ function Layout({ loadingLayout = false, errorLayout = false, children }) {
     (state) => state.loginUserReducer
   );
 
-  console.log(userLoged);
-
   const dispatch = useDispatch();
   const [showModal, setShowModal] = useState(false);
   const [loginForm, setLoginForm] = useState({
