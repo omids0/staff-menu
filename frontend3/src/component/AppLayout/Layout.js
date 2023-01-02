@@ -78,10 +78,12 @@ function Layout({ loadingLayout = false, errorLayout = false, children }) {
                   {userLoged.username}
                 </button>
                 <div className="dropdown-content">
-                  <a href="#">سفارشات من</a>
-                  <a href="#">سفارشات منتظر</a>
-                  <a href="#">مشترکین (ثبت، جستجو)</a>
-                  {userLoged.access === "admin" && <a href="#">صفحه مدیریت</a>}
+                  <Link to="/my_orders">سفارشات من</Link>
+                  <Link to="/pending_orders">سفارشات منتظر</Link>
+                  <Link to="/manage_customers">مشترکین (ثبت، جستجو)</Link>
+                  {userLoged.access === "admin" && (
+                    <Link to="/manager">صفحه مدیریت</Link>
+                  )}
                   <button onClick={handleLogout}>خروج</button>
                 </div>
               </div>
