@@ -28,6 +28,8 @@ function MyOrder() {
     dispatch(sentOrderAction(order));
   }
 
+  let rowNum = 1;
+
   return (
     <Layout loadingLayout={loading} errorLayout={error}>
       <div className="flex flex-col">
@@ -97,7 +99,7 @@ function MyOrder() {
                         key={item._id}
                       >
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                          {index + 1}
+                          {rowNum++}
                         </td>
                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                           {item?.serviceType === "service" ? (
