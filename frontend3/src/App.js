@@ -6,6 +6,7 @@ import PageNotFound from "./component/PageNotFound";
 import PendingOrders from "./component/pendingOrder";
 import ManageCustomers from "./component/ManageCustomers";
 import AdminPage from "./component/AdminPage";
+import EditOrder from "./component/EditOrder";
 
 function App() {
   return (
@@ -14,6 +15,7 @@ function App() {
         <Route path="/" component={HomePage} exact />
         <Route path="/basket" component={BasketPage} exact />
         <Route path="/my_orders" component={MyOrder} exact />
+        <Route path="/order/edit/:id" component={EditOrder} exact />
         <Route path="/pending_orders" component={PendingOrders} exact />
         <Route path="/manage_customers" component={ManageCustomers} exact />
         <Route path="/manager" component={AdminPage} exact />
