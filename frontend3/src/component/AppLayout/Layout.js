@@ -14,11 +14,13 @@ function Layout({ loadingLayout = false, errorLayout = false, children }) {
   );
 
   const dispatch = useDispatch();
+
   const [showModal, setShowModal] = useState(false);
   const [loginForm, setLoginForm] = useState({
     userName: "",
     password: "",
   });
+
   const handleFirstButton = () => {
     setShowModal(false);
     if (loginForm.userName && loginForm.password) {
@@ -36,6 +38,7 @@ function Layout({ loadingLayout = false, errorLayout = false, children }) {
       password: "",
     });
   };
+
   const handleSecondButton = () => {
     setShowModal(false);
     setLoginForm({

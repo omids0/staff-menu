@@ -46,7 +46,7 @@ function ManageCustomers() {
           </svg>
         </div>
         <input
-          className={`border-2 rounded-md p-2 mt-2 min-w-[18rem] mb-6 mx-2 opacity-0 transition ease-in-out delay-150 ${
+          className={`border-2 rounded-md p-2 mt-2 w-full max-w-[25rem] mb-6 mx-2 opacity-0 transition ease-in-out delay-150 ${
             showSearch && "opacity-100"
           }`}
           placeholder="جستجو مشترک"

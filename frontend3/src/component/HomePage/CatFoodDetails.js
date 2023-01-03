@@ -1,17 +1,14 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { useDispatch } from "react-redux";
 import CartIcone from "../CartIcone";
 import { addToBasketAction } from "../../redux/actions/basketActions";
 import { getThreeDigitNum } from "../../tools/threeDigit";
+import { useSelector } from "react-redux";
 
 function CatFoodDetails({ food }) {
+  const { basketItems } = useSelector((state) => state.addToBasketReducer);
+  const foodItem = basketItems.find((item) => item._id === food._id && item);
   const dispatch = useDispatch();
-  const [count, setCount] = useState(0);
-
-  useEffect(() => {
-    dispatch(addToBasketAction(food, count));
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [count]);
 
   return (
     <div className="flex flex-row justify-between my-2">
@@ -22,30 +19,34 @@ function CatFoodDetails({ food }) {
         </p>
       </div>
       <div className="bg-red-600 text-white p-2 flex flex-col justify-center items-center sm:min-w-[9rem] min-w-[8rem] rounded-l-lg">
-        {count > 0 ? (
+        {foodItem?.qty > 0 ? (
           <div className="flex flex-row text-2xl w-full justify-between">
             <button
               className="bg-green-500 px-2 rounded-full"
-              onClick={() => setCount(count + 1)}
+              onClick={() =>
+                dispatch(addToBasketAction(food, foodItem.qty + 1))
+              }
             >
               +
             </button>
-            <p className="mx-2">{count}</p>
+            <p className="mx-2">{foodItem.qty}</p>
             <button
               className="bg-red-800 px-2 rounded-full"
-              onClick={() => setCount(count - 1)}
+              onClick={() =>
+                dispatch(addToBasketAction(food, foodItem.qty - 1))
+              }
             >
               -
             </button>
           </div>
         ) : (
-          <button onClick={() => setCount(1)}>
+          <button onClick={() => dispatch(addToBasketAction(food, 1))}>
             <CartIcone />
           </button>
         )}
-        {count > 0 && (
+        {foodItem?.qty > 0 && (
           <p className="mt-4 text-xl text-gray-100 font-bold">
-            {getThreeDigitNum(food.price * count)}
+            {getThreeDigitNum(food.price * foodItem.qty)}
           </p>
         )}
       </div>
