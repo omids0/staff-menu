@@ -96,7 +96,7 @@ function PendingOrders() {
                         item.isDeliverd === false && (
                           <tr
                             className={`${
-                              index % 2 ? "bg-gray-200" : "bg-gray-50"
+                              rowNum % 2 ? "bg-gray-200" : "bg-gray-50"
                             } border-b`}
                             key={item._id}
                           >
@@ -116,7 +116,6 @@ function PendingOrders() {
                               {item?.tableNum ?? "_"}
                             </td>
                             <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                              {console.log(userorder)}
                               <p>{item.customer[0]?.customerName}</p>
                               <p className="my-2">
                                 {item.customer[0]?.customerTel}
