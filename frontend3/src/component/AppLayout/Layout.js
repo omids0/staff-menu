@@ -87,7 +87,9 @@ function Layout({ loadingLayout = false, errorLayout = false, children }) {
                   {userLoged.access === "admin" && (
                     <Link to="/manager">صفحه مدیریت</Link>
                   )}
-                  <button onClick={handleLogout}>خروج</button>
+                  <div>
+                    <button onClick={handleLogout}>خروج</button>
+                  </div>
                 </div>
               </div>
             </div>
