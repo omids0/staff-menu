@@ -7,6 +7,15 @@ import Users from "./Users";
 
 function AdminPage() {
   const [selectedTab, setselectedTab] = useState(1);
+
+  const checkAccess = localStorage.getItem("userlogedin")
+    ? JSON.parse(localStorage.getItem("userlogedin"))
+    : null;
+
+  if (!checkAccess || checkAccess.access !== "admin") {
+    window.location.href = "/";
+  }
+
   return (
     <Layout>
       <div className="min-h-screen">
