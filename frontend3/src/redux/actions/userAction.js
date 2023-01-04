@@ -5,7 +5,7 @@ export const addUserAction = (user) => async (dispatch) => {
   try {
     await axios.post("/api/users/adduser", { user });
     dispatch({ type: "ADD_USER_SUCCESS" });
-    window.location.href = "/admin/users/";
+    window.location.reload();
   } catch (error) {
     dispatch({ type: "ADD_USER_FAILED", payload: error.message });
   }
@@ -36,7 +36,7 @@ export const updateUserAction = (user) => async (dispatch) => {
   try {
     await axios.post("/api/users/updateuser", { user });
     dispatch({ type: "UPDATE_USER_INFO_SUCCESS" });
-    window.location.href = "/admin/users/";
+    window.location.reload();
   } catch (error) {
     dispatch({ type: "UPDATE_USER_INFO_FAILED", payload: error.message });
   }
@@ -47,7 +47,7 @@ export const deleteUserAction = (id) => async (dispatch) => {
   try {
     await axios.post("/api/users/deleteuser", { id });
     dispatch({ type: "DELETE_USER_SUCCESS" });
-    window.location.href = "/admin/users/";
+    window.location.reload();
   } catch (error) {
     dispatch({ type: "DELETE_USER_FAILED", payload: error.message });
   }
