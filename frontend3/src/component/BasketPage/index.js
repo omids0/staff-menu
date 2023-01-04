@@ -100,10 +100,10 @@ function BasketPage() {
     <Layout>
       <div className="w-full flex sm:flex-row flex-col justify-between">
         {basketItems.length > 0 ? (
-          <div className="w-full flex sm:flex-row flex-col justify-between">
+          <div className="w-full flex sm:flex-row flex-col justify-between bg-blue-100 rounded-3xl p-5 items-center">
             <div className="mx-auto">
               <table className="table-auto border-collapse border border-slate-500 my-4 min-w-[20rem]">
-                <thead>
+                <thead className="bg-gray-200">
                   <tr>
                     <th className="border border-slate-500 p-2">#</th>
                     <th className="border border-slate-500 p-2">نام</th>
@@ -111,7 +111,7 @@ function BasketPage() {
                     <th className="border border-slate-500 p-2">مجموع</th>
                   </tr>
                 </thead>
-                <tbody>
+                <tbody className="bg-gray-50">
                   {basketItems.map((food, index) => (
                     <TableBody key={food._id} food={food} index={index} />
                   ))}
