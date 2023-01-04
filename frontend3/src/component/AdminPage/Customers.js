@@ -1,19 +1,34 @@
 import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getAllCustomersAction } from "../../redux/actions/customersAction";
+import {
+  editCustomerAction,
+  findCustomerAction,
+  getAllCustomersAction,
+} from "../../redux/actions/customersAction";
 import Loading from "../Loading/Loading";
+import Modal from "../Modal";
 import SomeThingWrong from "../SomeThingWentWrong/SomeThingWrong";
-
-//ویرایش مشترکین
 
 function Customers() {
   const { loadingcustomers, errorLoadingCustomers, allcustomers } = useSelector(
     (state) => state.getAllCustomersReducer
   );
 
+  const { searchedCustomer } = useSelector(
+    (state) => state.findCustomerReducer
+  );
+
   const [searchCustomer, setSearchCustomer] = useState("");
   const [showSearch, setShowSearch] = useState(false);
+  const [editCustomer, setEditCustomer] = useState({
+    openModal: false,
+    id: "",
+    code: "",
+    name: "",
+    phoneNum: "",
+    address: "",
+  });
 
   const dispatch = useDispatch();
 
@@ -21,7 +36,54 @@ function Customers() {
     dispatch(getAllCustomersAction());
   }, []);
 
+  useEffect(() => {
+    if (searchedCustomer) {
+      setEditCustomer((prev) => ({
+        ...prev,
+        code: searchedCustomer.customerId,
+        name: searchedCustomer.customerName,
+        phoneNum: searchedCustomer.customerTel,
+        address: searchedCustomer.customerAddress,
+      }));
+    }
+  }, [searchedCustomer]);
+
   let rowNum = 1;
+
+  const handleToEditCustomer = (id) => {
+    dispatch(findCustomerAction(id));
+    setEditCustomer((prev) => ({
+      ...prev,
+      openModal: true,
+      id,
+    }));
+  };
+
+  const handleToCloseEditCustomer = () => {
+    setEditCustomer({
+      openModal: false,
+      id: "",
+      code: "",
+      name: "",
+      phoneNum: "",
+      address: "",
+    });
+  };
+
+  const handleSubmitEditCustomer = () => {
+    if (editCustomer.name && editCustomer.phoneNum && editCustomer.address) {
+      const customer = {
+        _id: editCustomer.id,
+        customerId: editCustomer.code,
+        customerName: editCustomer.name,
+        customerTel: editCustomer.phoneNum,
+        customerAddress: editCustomer.address,
+      };
+      dispatch(editCustomerAction(customer));
+    } else {
+      alert("لطفا تمامی فیلد ها را پر نمایید");
+    }
+  };
 
   return (
     <>
@@ -134,6 +196,9 @@ function Customers() {
                                     strokeWidth={1.5}
                                     stroke="currentColor"
                                     className="w-6 h-6 text-blue-500 cursor-pointer"
+                                    onClick={() =>
+                                      handleToEditCustomer(item._id)
+                                    }
                                   >
                                     <path
                                       strokeLinecap="round"
@@ -171,6 +236,7 @@ function Customers() {
                                   strokeWidth={1.5}
                                   stroke="currentColor"
                                   className="w-6 h-6 text-blue-500 cursor-pointer"
+                                  onClick={() => handleToEditCustomer(item._id)}
                                 >
                                   <path
                                     strokeLinecap="round"
@@ -190,6 +256,55 @@ function Customers() {
           </div>
         </>
       )}
+      <Modal
+        showModal={editCustomer.openModal}
+        modalTitle="ویرایش مشترک"
+        firstButton="ویرایش"
+        secondButton="انصراف"
+        handleFirstButton={handleSubmitEditCustomer}
+        handleSecondButton={handleToCloseEditCustomer}
+      >
+        <div className="flex flex-col max-w-[22rem] p-2">
+          <input
+            placeholder="شماره اشتراک"
+            className="text-sm p-2 border border-2 border-gray-300 rounded-md min-w-[18rem] my-1"
+            value={editCustomer.code}
+          />
+          <input
+            placeholder="نام مشترک"
+            className="text-sm p-2 border border-2 border-gray-300 rounded-md min-w-[18rem] my-1"
+            value={editCustomer.name}
+            onChange={(e) =>
+              setEditCustomer((prev) => ({
+                ...prev,
+                name: e.target.value,
+              }))
+            }
+          />
+          <input
+            placeholder="شماره تماس مشترک"
+            className="text-sm p-2 border border-2 border-gray-300 rounded-md min-w-[18rem] my-1"
+            value={editCustomer.phoneNum}
+            onChange={(e) =>
+              setEditCustomer((prev) => ({
+                ...prev,
+                phoneNum: e.target.value,
+              }))
+            }
+          />
+          <input
+            placeholder="آدرس مشترک"
+            className="text-sm p-2 border border-2 border-gray-300 rounded-md min-w-[18rem] my-1"
+            value={editCustomer.address}
+            onChange={(e) =>
+              setEditCustomer((prev) => ({
+                ...prev,
+                address: e.target.value,
+              }))
+            }
+          />
+        </div>
+      </Modal>
     </>
   );
 }

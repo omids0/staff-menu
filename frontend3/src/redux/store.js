@@ -6,6 +6,7 @@ import {
   addNewCustomerReducer,
   editCustomerReducer,
   findCustomerByIdReducer,
+  findCustomerReducer,
   getAllCustomersReducer,
   removeCustomerReducer,
 } from "./reducers/customersReducer";
@@ -59,6 +60,7 @@ const finalReducers = combineReducers({
   getAllSendingOrdersReducer: getAllSendingOrdersReducer,
   getAllOrdersReducer: getAllOrdersReducer,
   getFoodReducer: getFoodReducer,
+  findCustomerReducer: findCustomerReducer,
 });
 
 const basket = localStorage.getItem("basketN")

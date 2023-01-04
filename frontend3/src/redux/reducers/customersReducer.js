@@ -43,6 +43,29 @@ export const findCustomerByIdReducer = (state = {}, action) => {
   }
 };
 
+export const findCustomerReducer = (state = {}, action) => {
+  switch (action.type) {
+    case "FIND_CUSTOMER_REQUEST":
+      return {
+        loading: true,
+        error: "",
+        ...state,
+      };
+    case "FIND_CUSTOMER_SUCCESS":
+      return {
+        loading: false,
+        searchedCustomer: action.payload,
+      };
+    case "FIND_CUSTOMER_FAILED":
+      return {
+        loading: false,
+        error: action.payload,
+      };
+    default:
+      return state;
+  }
+};
+
 export const getAllCustomersReducer = (state = {}, action) => {
   switch (action.type) {
     case "GET_ALL_CUSTOMERS_REQUEST":
