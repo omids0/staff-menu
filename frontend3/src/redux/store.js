@@ -13,6 +13,7 @@ import {
   addFoodToMenuReducer,
   editFoodReducer,
   getAllFoodsReducer,
+  getFoodReducer,
   removeFoodReducer,
 } from "./reducers/foodReducers";
 import {
@@ -57,6 +58,7 @@ const finalReducers = combineReducers({
   findOrderReducer: findOrderReducer,
   getAllSendingOrdersReducer: getAllSendingOrdersReducer,
   getAllOrdersReducer: getAllOrdersReducer,
+  getFoodReducer: getFoodReducer,
 });
 
 const basket = localStorage.getItem("basketN")

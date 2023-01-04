@@ -5,7 +5,7 @@ export const addFoodToMenuAction = (food) => async (dispatch) => {
   try {
     await axios.post("/api/foods/addfoodtomenu", { food });
     dispatch({ type: "ADD_FOOD_TO_MENU_SUCCESS" });
-    window.location.href = "/admin/foods";
+    window.location.reload();
   } catch (error) {
     dispatch({ type: "ADD_FOOD_TO_MENU_FAILED", payload: error.message });
   }
@@ -37,8 +37,18 @@ export const editFoodAction = (food) => async (dispatch) => {
   try {
     await axios.post("/api/foods/editfood", { food });
     dispatch({ type: "EDIT_FOOD_SUCCESS" });
-    window.location.href = "/admin/foods/";
+    window.location.reload();
   } catch (error) {
     dispatch({ type: "EDIT_FOOD_FAILED", payload: error.message });
+  }
+};
+
+export const getFoodAction = (id) => async (dispatch) => {
+  dispatch({ type: "GET_FOOD_REQUEST" });
+  try {
+    const response = await axios.post("/api/foods/getthefood", { id });
+    dispatch({ type: "GET_FOOD_SUCCESS", payload: response.data });
+  } catch (error) {
+    dispatch({ type: "GET_FOOD_FAILED", payload: error.message });
   }
 };

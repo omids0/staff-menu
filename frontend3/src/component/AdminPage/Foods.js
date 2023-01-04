@@ -1,8 +1,16 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import { useSelector } from "react-redux";
 import { useDispatch } from "react-redux";
-import { getAllFoodsAction } from "../../redux/actions/foodAction";
+import {
+  addFoodToMenuAction,
+  editFoodAction,
+  getAllFoodsAction,
+  getFoodAction,
+  removeFoodAction,
+} from "../../redux/actions/foodAction";
+import { getThreeDigitNum } from "../../tools/threeDigit";
 import Loading from "../Loading/Loading";
+import Modal from "../Modal";
 import SomeThingWrong from "../SomeThingWentWrong/SomeThingWrong";
 
 // add modal for "new food" && بررسی
@@ -10,15 +18,114 @@ import SomeThingWrong from "../SomeThingWentWrong/SomeThingWrong";
 function Foods() {
   const dispatch = useDispatch();
 
+  const { food } = useSelector((state) => state.getFoodReducer);
+
+  const [addNewFood, setAddNewFood] = useState({
+    openModal: false,
+    foodName: "",
+    category: "withrice",
+    price: "",
+    description: "",
+  });
+
+  const [editFood, setEditFood] = useState({
+    openModal: false,
+    id: "",
+    foodName: "",
+    category: "withrice",
+    price: "",
+    description: "",
+  });
+
   useEffect(() => {
     dispatch(getAllFoodsAction());
   }, []);
+
+  useEffect(() => {
+    if (food) {
+      setEditFood((prev) => ({
+        ...prev,
+        id: food._id,
+        foodName: food.name,
+        category: food.category,
+        price: food.price,
+        description: food.description,
+      }));
+    }
+  }, [food]);
 
   const { loading, error, foods } = useSelector(
     (state) => state.getAllFoodsReducer
   );
 
   let rowNum = 1;
+
+  const handleAddNewFood = () => {
+    setAddNewFood((prev) => ({
+      ...prev,
+      openModal: true,
+    }));
+  };
+
+  const handleCancelEditFood = () => {
+    setAddNewFood({
+      openModal: false,
+      foodName: "",
+      category: "withrice",
+      price: "",
+      description: "",
+    });
+  };
+
+  const handleSubmitNewFood = () => {
+    const food = {
+      name: addNewFood.foodName,
+      category: addNewFood.category,
+      price: addNewFood.price,
+      description: addNewFood.description,
+    };
+
+    if (addNewFood.foodName && addNewFood.category && addNewFood.price) {
+      dispatch(addFoodToMenuAction(food));
+    } else {
+      alert("لطفا تمامی فیلدها را پر نمایید.");
+    }
+  };
+
+  const handleToEditFood = (id) => {
+    setEditFood((prev) => ({
+      ...prev,
+      openModal: true,
+      id,
+    }));
+    dispatch(getFoodAction(id));
+  };
+
+  const handleCancelFood = () => {
+    setEditFood({
+      openModal: false,
+      id: "",
+      foodName: "",
+      category: "withrice",
+      price: "",
+      description: "",
+    });
+  };
+
+  const handleSubmitEditFood = () => {
+    const food = {
+      _id: editFood.id,
+      name: editFood.foodName,
+      category: editFood.category,
+      price: editFood.price,
+      description: editFood.description,
+    };
+    if (editFood.foodName && editFood.category && editFood.price) {
+      dispatch(editFoodAction(food));
+    } else {
+      alert("لطفا تمامی فیلدها را پر نمایید.");
+    }
+  };
 
   return (
     <div>
@@ -31,7 +138,10 @@ function Foods() {
       {foods && !loading && !error && (
         <div className="flex flex-col">
           <div>
-            <button className="flex flex-row border border-1.5 rounded-md p-2">
+            <button
+              className="flex flex-row border border-1.5 rounded-md p-2"
+              onClick={() => handleAddNewFood()}
+            >
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"
@@ -108,45 +218,51 @@ function Foods() {
                           {item.name}
                         </td>
                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                          {item.category}
+                          {item.category === "withoutrice"
+                            ? "خوراک"
+                            : item.category === "appetizer"
+                            ? "پیش‌غذا"
+                            : item.category === "drink"
+                            ? "نوشیدنی"
+                            : item.category === "withrice" && "چلو"}
                         </td>
                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                          {item.price}
+                          {getThreeDigitNum(item.price)} ت
                         </td>
                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                           {item.description}
                         </td>
-                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                          <div className="flex w-20 justify-between">
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              strokeWidth={1.5}
-                              stroke="currentColor"
-                              className="w-6 h-6 text-blue-500 cursor-pointer"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
-                              />
-                            </svg>
-                            <svg
-                              xmlns="http://www.w3.org/2000/svg"
-                              fill="none"
-                              viewBox="0 0 24 24"
-                              strokeWidth={1.5}
-                              stroke="currentColor"
-                              className="w-6 h-6 text-red-500 cursor-pointer"
-                            >
-                              <path
-                                strokeLinecap="round"
-                                strokeLinejoin="round"
-                                d="M6 18L18 6M6 6l12 12"
-                              />
-                            </svg>
-                          </div>
+                        <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap flex justify-evenly">
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-6 h-6 text-blue-500 cursor-pointer"
+                            onClick={() => handleToEditFood(item._id)}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
+                            />
+                          </svg>
+                          <svg
+                            xmlns="http://www.w3.org/2000/svg"
+                            fill="none"
+                            viewBox="0 0 24 24"
+                            strokeWidth={1.5}
+                            stroke="currentColor"
+                            className="w-6 h-6 text-red-500 cursor-pointer mr-6"
+                            onClick={() => dispatch(removeFoodAction(item._id))}
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              d="M6 18L18 6M6 6l12 12"
+                            />
+                          </svg>
                         </td>
                       </tr>
                     ))}
@@ -157,6 +273,134 @@ function Foods() {
           </div>
         </div>
       )}
+      <Modal
+        showModal={addNewFood.openModal}
+        modalTitle="خوراک جدید"
+        firstButton="ثبت"
+        secondButton="انصراف"
+        handleFirstButton={handleSubmitNewFood}
+        handleSecondButton={handleCancelEditFood}
+      >
+        <div className="flex flex-col max-w-[22rem] p-2">
+          <input
+            value={addNewFood.foodName}
+            placeholder="نام"
+            className="text-sm p-2 border border-2 border-gray-300 rounded-md min-w-[18rem] my-1"
+            onChange={(e) =>
+              setAddNewFood((prev) => ({
+                ...prev,
+                foodName: e.target.value,
+              }))
+            }
+          />
+          <label for="categories" className="text-sm my-2 text-gray-700">
+            دسته بندی:
+          </label>
+          <select
+            name="categories"
+            id="categories"
+            className="mb-2 text-sm"
+            value={addNewFood.category}
+            onChange={(e) =>
+              setAddNewFood((prev) => ({
+                ...prev,
+                category: e.target.value,
+              }))
+            }
+          >
+            <option value="withrice">چلو</option>
+            <option value="withoutrice">خوراک</option>
+            <option value="drink">نوشیدنی</option>
+            <option value="appetizer">پیش غذا</option>
+          </select>
+          <input
+            placeholder="قیمت"
+            className="text-sm p-2 border border-2 border-gray-300 rounded-md min-w-[18rem] my-1"
+            value={addNewFood.price}
+            onChange={(e) =>
+              setAddNewFood((prev) => ({
+                ...prev,
+                price: e.target.value,
+              }))
+            }
+          />
+          <textarea
+            placeholder="توضیحات"
+            className="text-sm p-2 border border-2 border-gray-300 rounded-md min-w-[18rem] my-1"
+            value={addNewFood.description}
+            onChange={(e) =>
+              setAddNewFood((prev) => ({
+                ...prev,
+                description: e.target.value,
+              }))
+            }
+          />
+        </div>
+      </Modal>
+      <Modal
+        showModal={editFood.openModal}
+        modalTitle="ویرایش خوراکی"
+        firstButton="ویرایش"
+        secondButton="انصراف"
+        handleFirstButton={handleSubmitEditFood}
+        handleSecondButton={handleCancelFood}
+      >
+        <div className="flex flex-col max-w-[22rem] p-2">
+          <input
+            value={editFood.foodName}
+            placeholder="نام"
+            className="text-sm p-2 border border-2 border-gray-300 rounded-md min-w-[18rem] my-1"
+            onChange={(e) =>
+              setEditFood((prev) => ({
+                ...prev,
+                foodName: e.target.value,
+              }))
+            }
+          />
+          <label for="categories" className="text-sm my-2 text-gray-700">
+            دسته بندی:
+          </label>
+          <select
+            name="categories"
+            id="categories"
+            className="mb-2 text-sm"
+            value={editFood.category}
+            onChange={(e) =>
+              setEditFood((prev) => ({
+                ...prev,
+                category: e.target.value,
+              }))
+            }
+          >
+            <option value="withrice">چلو</option>
+            <option value="withoutrice">خوراک</option>
+            <option value="drink">نوشیدنی</option>
+            <option value="appetizer">پیش غذا</option>
+          </select>
+          <input
+            placeholder="قیمت"
+            className="text-sm p-2 border border-2 border-gray-300 rounded-md min-w-[18rem] my-1"
+            value={editFood.price}
+            onChange={(e) =>
+              setEditFood((prev) => ({
+                ...prev,
+                price: e.target.value,
+              }))
+            }
+          />
+          <textarea
+            placeholder="توضیحات"
+            className="text-sm p-2 border border-2 border-gray-300 rounded-md min-w-[18rem] my-1"
+            value={editFood.description}
+            onChange={(e) =>
+              setEditFood((prev) => ({
+                ...prev,
+                description: e.target.value,
+              }))
+            }
+          />
+        </div>
+      </Modal>
     </div>
   );
 }
