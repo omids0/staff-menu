@@ -13,8 +13,8 @@ function CatFoodDetails({ food }) {
   return (
     <div className="flex flex-row justify-between my-2 min-h-[7rem]">
       <div className="p-2 rounded-r-lg bg-gradient-to-r from-slate-100 to-red-50 w-full flex flex-col justify-between">
-        <p>{food.name}</p>
-        <p className="mt-2 text-gray-500">
+        <p className="text-sm font-bold text-gray-800 flex-wrap">{food.name}</p>
+        <p className="mt-2 text-gray-400 text-sm">
           {food.price.toLocaleString()} تومان
         </p>
       </div>
@@ -22,7 +22,7 @@ function CatFoodDetails({ food }) {
         {foodItem?.qty > 0 ? (
           <div className="flex flex-row text-2xl w-full justify-between">
             <button
-              className="bg-green-500 px-2 rounded-full"
+              className="bg-green-500 px-2.5 rounded-full"
               onClick={() =>
                 dispatch(addToBasketAction(food, foodItem.qty + 1))
               }
@@ -45,7 +45,7 @@ function CatFoodDetails({ food }) {
           </button>
         )}
         {foodItem?.qty > 0 && (
-          <p className="mt-4 text-sm text-black font-bold">
+          <p className="mt-4 text-sm text-gray-500 font-bold">
             {getThreeDigitNum(food.price * foodItem.qty)} تومان
           </p>
         )}
