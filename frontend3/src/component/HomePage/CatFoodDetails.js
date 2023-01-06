@@ -11,14 +11,14 @@ function CatFoodDetails({ food }) {
   const dispatch = useDispatch();
 
   return (
-    <div className="flex flex-row justify-between my-2">
+    <div className="flex flex-row justify-between my-2 min-h-[7rem]">
       <div className="p-2 rounded-r-lg bg-gradient-to-r from-slate-100 to-red-50 w-full flex flex-col justify-between">
         <p>{food.name}</p>
         <p className="mt-2 text-gray-500">
           {food.price.toLocaleString()} تومان
         </p>
       </div>
-      <div className="bg-red-600 text-white p-2 flex flex-col justify-center items-center sm:min-w-[9rem] min-w-[8rem] rounded-l-lg">
+      <div className="bg-gray-100 text-white p-2 flex flex-col justify-center items-center sm:min-w-[9rem] min-w-[8rem] rounded-l-lg">
         {foodItem?.qty > 0 ? (
           <div className="flex flex-row text-2xl w-full justify-between">
             <button
@@ -29,9 +29,9 @@ function CatFoodDetails({ food }) {
             >
               +
             </button>
-            <p className="mx-2">{foodItem.qty}</p>
+            <p className="mx-2 text-gray-900">{foodItem.qty}</p>
             <button
-              className="bg-red-800 px-2 rounded-full"
+              className="bg-red-600 px-2.5 rounded-full"
               onClick={() =>
                 dispatch(addToBasketAction(food, foodItem.qty - 1))
               }
@@ -45,8 +45,8 @@ function CatFoodDetails({ food }) {
           </button>
         )}
         {foodItem?.qty > 0 && (
-          <p className="mt-4 text-xl text-gray-100 font-bold">
-            {getThreeDigitNum(food.price * foodItem.qty)}
+          <p className="mt-4 text-sm text-black font-bold">
+            {getThreeDigitNum(food.price * foodItem.qty)} تومان
           </p>
         )}
       </div>

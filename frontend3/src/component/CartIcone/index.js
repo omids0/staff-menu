@@ -8,7 +8,7 @@ function CartIcone() {
       viewBox="0 0 24 24"
       strokeWidth={1.5}
       stroke="currentColor"
-      className="w-6 h-6"
+      className="w-12 h-12 text-red-500 text-lg border border-2 p-2 rounded-full border-red-200"
     >
       <path
         strokeLinecap="round"
