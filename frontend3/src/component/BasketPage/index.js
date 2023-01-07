@@ -100,9 +100,9 @@ function BasketPage() {
     <Layout>
       <div className="w-full flex sm:flex-row flex-col justify-between">
         {basketItems.length > 0 ? (
-          <div className="w-full flex sm:flex-row flex-col justify-between bg-blue-100 rounded-3xl p-5 items-center">
+          <div className="w-full flex sm:flex-row flex-col justify-between bg-blue-50 rounded-3xl p-5 items-center">
             <div className="mx-auto">
-              <table className="table-auto border-collapse border border-slate-500 my-4 min-w-[20rem]">
+              <table className="table-auto border-collapse border border-slate-500 my-4 min-w-[20rem] max-w-[20rem]">
                 <thead className="bg-gray-200">
                   <tr>
                     <th className="border border-slate-500 p-2">#</th>
@@ -128,7 +128,7 @@ function BasketPage() {
                       choice: e.target.value,
                     }))
                   }
-                  className="my-4"
+                  className="my-4 max-w-[20rem]"
                 >
                   <option value="inner">داخل سالن</option>
                   <option value="out">بیرون بر (حضوری)</option>
@@ -137,7 +137,7 @@ function BasketPage() {
               </div>
               <div className="mx-auto my-6">
                 {serviceOption.choice === "inner" && (
-                  <div className="flex flex-col min-w-[22rem]">
+                  <div className="flex flex-col min-w-[20rem]">
                     <input
                       className=" border-2 rounded-md p-2"
                       placeholder="شماره میز"
@@ -161,7 +161,7 @@ function BasketPage() {
                   </div>
                 )}
                 {serviceOption.choice === "out" && (
-                  <div className="flex flex-col min-w-[22rem]">
+                  <div className="flex flex-col min-w-[20rem]">
                     <textarea
                       className="border-2 rounded-md p-2"
                       placeholder="توضیحات"
@@ -177,7 +177,7 @@ function BasketPage() {
                 {serviceOption.choice === "service" && (
                   <div>
                     {customerSubscribe === null && (
-                      <div className="border min-w-[22rem] p-2 rounded-md">
+                      <div className="border min-w-[20rem] p-2 rounded-md">
                         <p>آیا اشتراک دارند؟</p>
                         <div className="flex flex-row my-2">
                           <button
@@ -196,7 +196,7 @@ function BasketPage() {
                       </div>
                     )}
                     {customerSubscribe === true && (
-                      <div className="border flex flex-col rounded-md min-w-[22rem] p-2">
+                      <div className="border flex flex-col rounded-md min-w-[20rem] p-2">
                         <input
                           className=" border-2 rounded-md p-2"
                           placeholder="شماره اشتراک"
@@ -300,7 +300,7 @@ function BasketPage() {
                       </div>
                     )}
                     {customerSubscribe === false && (
-                      <div className="border flex flex-col rounded-md min-w-[22rem] p-2">
+                      <div className="border flex flex-col rounded-md min-w-[20rem] p-2">
                         <input
                           className=" border-2 rounded-md p-2"
                           placeholder="شماره اشتراک"
@@ -357,7 +357,7 @@ function BasketPage() {
                   </div>
                 )}
               </div>
-              <div className="flex flex-col min-w-[22rem] bg-blue-100 p-2 rounded-md mb-4">
+              <div className="flex flex-col min-w-[20rem] bg-blue-100 p-2 rounded-md mb-4">
                 <p className="font-bold">مبلغ قابل پرداخت:</p>
                 <p className="my-4">{getThreeDigitNum(totalPeyment)} تومان</p>
                 <button
