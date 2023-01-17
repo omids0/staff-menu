@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Layout from "../AppLayout/Layout";
 import Customers from "./Customers";
 import Foods from "./Foods";
@@ -7,6 +7,7 @@ import Users from "./Users";
 
 function AdminPage() {
   const [selectedTab, setselectedTab] = useState(1);
+  const tabNumber = localStorage.getItem("adminTab");
 
   const checkAccess = localStorage.getItem("userlogedin")
     ? JSON.parse(localStorage.getItem("userlogedin"))
@@ -16,6 +17,15 @@ function AdminPage() {
     window.location.href = "/";
   }
 
+  const handleChangeTab = (tab) => {
+    setselectedTab(tab);
+    localStorage.setItem("adminTab", Number(tab));
+  };
+
+  useEffect(() => {
+    setselectedTab(JSON.parse(tabNumber));
+  }, [tabNumber]);
+
   return (
     <Layout>
       <div className="min-h-screen">
@@ -23,7 +33,7 @@ function AdminPage() {
           <ul className="flex flex-wrap -mb-px">
             <li className="mr-2 cursor-pointer">
               <div
-                onClick={() => setselectedTab(1)}
+                onClick={() => handleChangeTab(1)}
                 className={
                   selectedTab === 1
                     ? "inline-block p-4 text-blue-600 rounded-t-lg border-b-2 border-blue-600 active dark:text-blue-500 dark:border-blue-500"
@@ -35,7 +45,7 @@ function AdminPage() {
             </li>
             <li className="mr-2 cursor-pointer">
               <div
-                onClick={() => setselectedTab(2)}
+                onClick={() => handleChangeTab(2)}
                 className={
                   selectedTab === 2
                     ? "inline-block p-4 text-blue-600 rounded-t-lg border-b-2 border-blue-600 active dark:text-blue-500 dark:border-blue-500"
@@ -48,7 +58,7 @@ function AdminPage() {
             </li>
             <li className="mr-2 cursor-pointer">
               <div
-                onClick={() => setselectedTab(3)}
+                onClick={() => handleChangeTab(3)}
                 className={
                   selectedTab === 3
                     ? "inline-block p-4 text-blue-600 rounded-t-lg border-b-2 border-blue-600 active dark:text-blue-500 dark:border-blue-500"
@@ -60,7 +70,7 @@ function AdminPage() {
             </li>
             <li className="mr-2 cursor-pointer">
               <div
-                onClick={() => setselectedTab(4)}
+                onClick={() => handleChangeTab(4)}
                 className={
                   selectedTab === 4
                     ? "inline-block p-4 text-blue-600 rounded-t-lg border-b-2 border-blue-600 active dark:text-blue-500 dark:border-blue-500"

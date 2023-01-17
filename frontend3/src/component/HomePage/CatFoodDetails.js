@@ -11,14 +11,14 @@ function CatFoodDetails({ food }) {
   const dispatch = useDispatch();
 
   return (
-    <div className="flex flex-row justify-between my-2 min-h-[7rem]">
-      <div className="p-2 rounded-r-lg bg-gradient-to-r from-slate-100 to-red-50 w-full flex flex-col justify-between">
+    <div className="flex flex-row justify-between my-2 min-h-[7rem] ">
+      <div className="p-4 rounded-r-lg bg-gradient-to-r from-slate-100 to-red-50 w-full flex flex-col justify-between">
         <p className="text-sm font-bold text-gray-800 flex-wrap">{food.name}</p>
         <p className="mt-2 text-gray-400 text-sm">
           {food.price.toLocaleString()} تومان
         </p>
       </div>
-      <div className="bg-gray-100 text-white p-2 flex flex-col justify-center items-center sm:min-w-[9rem] min-w-[8rem] rounded-l-lg">
+      <div className="bg-gray-100 text-white p-4 flex flex-col justify-center items-center sm:min-w-[9rem] min-w-[8rem] rounded-l-lg">
         {foodItem?.qty > 0 ? (
           <div className="flex flex-row text-2xl w-full justify-between">
             <button
