@@ -122,7 +122,7 @@ function MyOrder() {
                         </td>
                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                           {item?.basketItems.map((order, index) => (
-                            <div>
+                            <div key={index}>
                               <p>
                                 {index + 1}- {order?.name}
                               </p>
