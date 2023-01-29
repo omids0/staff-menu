@@ -15,7 +15,7 @@ function CatFoodDetails({ food }) {
       <div className="p-4 rounded-r-lg bg-gradient-to-r from-slate-100 to-red-50 w-full flex flex-col justify-between">
         <p className="text-sm font-bold text-gray-800 flex-wrap">{food.name}</p>
         <p className="mt-2 text-gray-400 text-sm">
-          {food.price.toLocaleString()} تومان
+          {food.price.toLocaleString("fa-IR")} تومان
         </p>
       </div>
       <div className="bg-gray-100 text-white p-4 flex flex-col justify-center items-center sm:min-w-[9rem] min-w-[8rem] rounded-l-lg">
@@ -29,7 +29,9 @@ function CatFoodDetails({ food }) {
             >
               +
             </button>
-            <p className="mx-2 text-gray-900">{foodItem.qty}</p>
+            <p className="mx-2 text-gray-900">
+              {getThreeDigitNum(foodItem.qty)}
+            </p>
             <button
               className="bg-red-600 px-2.5 rounded-full"
               onClick={() =>

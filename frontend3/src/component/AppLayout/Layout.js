@@ -6,6 +6,7 @@ import Loading from "../Loading/Loading";
 import Modal from "../Modal";
 import SomeThingWrong from "../SomeThingWentWrong/SomeThingWrong";
 import { loginUserAction } from "../../redux/actions/userAction";
+import { getThreeDigitNum } from "../../tools/threeDigit";
 
 function Layout({ loadingLayout = false, errorLayout = false, children }) {
   const { basketItems } = useSelector((state) => state.addToBasketReducer);
@@ -137,7 +138,9 @@ function Layout({ loadingLayout = false, errorLayout = false, children }) {
           <div className="text-gray-300">{"|"}</div>
           <Link to="/basket">
             <button className="flex flex-row">
-              <p className="mx-2 text-red-500 text-lg">{basketItems.length}</p>
+              <p className="mx-2 text-red-500 text-lg">
+                {getThreeDigitNum(basketItems.length)}
+              </p>
               <svg
                 xmlns="http://www.w3.org/2000/svg"
                 fill="none"

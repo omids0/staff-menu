@@ -1,1 +1,1 @@
-export const getThreeDigitNum = (num) => num.toLocaleString();
+export const getThreeDigitNum = (num) => num.toLocaleString("fa-IR");

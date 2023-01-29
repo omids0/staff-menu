@@ -99,7 +99,7 @@ function MyOrder() {
                         key={item._id}
                       >
                         <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">
-                          {rowNum++}
+                          {getThreeDigitNum(rowNum++)}
                         </td>
                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                           {item?.serviceType === "service" ? (
@@ -111,7 +111,9 @@ function MyOrder() {
                           )}
                         </td>
                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
-                          {item?.tableNum ?? "_"}
+                          {item?.tableNum
+                            ? getThreeDigitNum(item.tableNum)
+                            : "_"}
                         </td>
                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                           <p>{item.customer[0]?.customerName}</p>
@@ -122,11 +124,21 @@ function MyOrder() {
                         </td>
                         <td className="text-sm text-gray-900 font-light px-6 py-4 whitespace-nowrap">
                           {item?.basketItems.map((order, index) => (
-                            <div key={index}>
+                            <div
+                              key={index}
+                              className={
+                                index > 0
+                                  ? "border-t-2 py-4 border-t-slate-400"
+                                  : "py-4"
+                              }
+                            >
                               <p>
-                                {index + 1}- {order?.name}
+                                <span className="font-bold">
+                                  {getThreeDigitNum(index + 1)}-
+                                </span>{" "}
+                                {order?.name}
                               </p>
-                              <p className="mb-4">{`${getThreeDigitNum(
+                              <p>{`${getThreeDigitNum(
                                 order?.qty
                               )} * ${getThreeDigitNum(
                                 order?.price
