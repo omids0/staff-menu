@@ -59,7 +59,6 @@ export const loginUserAction = (user) => async (dispatch) => {
     const response = await axios.post("/api/users/login", user);
     dispatch({ type: "LOGIN_USER_SUCCESS", payload: response.data });
     localStorage.setItem("userlogedin", JSON.stringify(response.data));
-    window.location.href = "/";
   } catch (error) {
     dispatch({ type: "LOGIN_USER_FAILED", payload: error.message });
   }
